@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFollowUp;
+use App\Models\Appointment;
 use App\Models\FollowUp;
 use Illuminate\Http\Request;
 
@@ -90,14 +91,30 @@ class FollowUpController extends Controller
 
     public function save_follow_up_appointment(StoreFollowUp $request)
     {
-        $follow_up = new FollowUp();
-        $follow_up->user_id = auth()->user()->id;
-        $follow_up->date_time = $request->date_time;
-        $follow_up->follow_up_remark = $request->remark;
-        $follow_up->marketing_team_id = $request->marketing_team_id;
-        $follow_up->save();
-        return json_encode(array(
-            "statusCode" => 200
-        ));
+
+        $follow_up_or_appointment = $request->follow_up_or_appointment;
+        if ($follow_up_or_appointment == 'follow_up') {
+            $follow_up = new FollowUp();
+            $follow_up->user_id = auth()->user()->id;
+            $follow_up->follow_up_date = $request->date_time;
+            $follow_up->follow_up_remark = $request->remark;
+            $follow_up->marketing_team_id = $request->marketing_team_id;
+            $follow_up->save();
+            return json_encode(array(
+                "statusCode" => 200
+            ));
+        } elseif ($follow_up_or_appointment == 'appointment') {
+            $follow_up = new Appointment();
+            $follow_up->user_id = auth()->user()->id;
+            $follow_up->appointment_date_time = $request->date_time;
+            $follow_up->appointment_remark = $request->remark;
+            $follow_up->marketing_team_id = $request->marketing_team_id;
+            $follow_up->appointment_person = $request->appointment_person;
+            $follow_up->appointment_location = $request->appointment_location;
+            $follow_up->save();
+            return json_encode(array(
+                "statusCode" => 200
+            ));
+        }
     }
 }

@@ -54,6 +54,11 @@ Route::middleware('auth')->group(function () {
         'as' => 'marketing_team_details_export',
         'uses' => 'Marketing\MarketingTeamController@marketing_team_details_export'
     ]);
+
+    Route::get('get_phone_number/{id}', [
+        'as' => 'get_phone_number',
+        'uses' => 'Marketing\MarketingTeamController@get_phone_number'
+    ]);
     // Marketing 
 
     Route::resource('marketing_file', 'Marketing\MarketingFileController');

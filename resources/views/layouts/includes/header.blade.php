@@ -58,6 +58,9 @@
 
     <link rel="stylesheet" href="{{ asset('global/vendor/bootstrap-select/bootstrap-select.minfd53.css?v4.0.1') }}">
 
+    <link rel="stylesheet" href="{{ asset('install/toasts/css/toast.css') }}">
+    
+
     {{-- Datatable --}}
     <link rel="stylesheet"
         href="{{ asset('global/vendor/datatables.net-bs4/dataTables.bootstrap4.minfd53.css?v4.0.1') }}">

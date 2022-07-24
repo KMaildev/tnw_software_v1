@@ -83,6 +83,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
+<script src="{{ asset('install/toasts/js/toast.js') }}"></script>
+
+
 @yield('script')
 
 <script type="text/javascript">
@@ -150,7 +153,24 @@
         $('.selectpicker').selectpicker();
     });
 
-
+    $.toastDefaults = {
+        // top-left, top-right, bottom-left, bottom-right, top-center, and bottom-center
+        position: 'bottom-right',
+        // is dismissable?
+        dismissible: true,
+        // is stackable?
+        stackable: true,
+        // pause delay on hover
+        pauseDelayOnHover: true,
+        // additional CSS Classes
+        style: {
+            toast: '',
+            info: '',
+            success: '',
+            warning: '',
+            error: '',
+        }
+    };
 </script>
 </body>
 

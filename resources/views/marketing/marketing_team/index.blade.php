@@ -249,6 +249,69 @@
             </div>
         </div>
     </div>
+
+
+    <!-- PhoneModelShow -->
+    <div class="modal fade" id="PhoneModelShow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #AF742E;">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white">
+                        Call Now
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div id="showPhoneNumbers"></div>
+                    <hr>
+                    <form class="save_follow_up_or_appointment" action="#" method="POST" id="create-form">
+                        @csrf
+                        <div class="form-group">
+                            <div class="radio-custom radio-default radio-inline">
+                                <input type="radio" id="FollowUp" name="follow_up_or_appointment" checked
+                                    value="follow_up" />
+                                <label for="FollowUp">
+                                    Follow Up
+                                </label>
+                            </div>
+                            <div class="radio-custom radio-default radio-inline">
+                                <input type="radio" id="Appointment" name="follow_up_or_appointment"
+                                    value="appointment" />
+                                <label for="Appointment">
+                                    Appointment
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input id="datetimepicker4" type="text" class="form-control" name="date_time"
+                                    autocomplete="off" placeholder="Date" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="remark" autocomplete="off"
+                                    placeholder="Remark" />
+                            </div>
+
+                            <div class="form-group col-md-6" id="AppointmentPerson">
+                                <input type="text" class="form-control" name="appointment_person" autocomplete="off"
+                                    placeholder="Appointment Person" />
+                            </div>
+                            <div class="form-group col-md-6" id="AppointmentLocation">
+                                <input type="text" class="form-control" name="appointment_location"
+                                    autocomplete="off" placeholder="Appointment Location" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -382,5 +445,80 @@
                 });
             });
         });
+
+        var id;
+        $('body').on('click', '#showPhoneModel', function(e) {
+            e.preventDefault();
+            id = $(this).data('id');
+            $('#PhoneModelShow').modal('show');
+            $.ajax({
+                url: "get_phone_number/" + id,
+                method: 'GET',
+                success: function(result) {
+                    $('#showPhoneNumbers').html(result.html);
+                }
+            });
+        });
+
+
+        $('.save_follow_up_or_appointment').submit(function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let data = form.serializeArray();
+
+            let follow_up_or_appointment = document.querySelector('input[name="follow_up_or_appointment"]:checked')
+                .value;
+            let date_time = form.find("input[name=date_time]").val();
+            let remark = form.find("input[name=remark]").val();
+            let appointment_person = form.find("input[name=appointment_person]").val();
+            let appointment_location = form.find("input[name=appointment_location]").val();
+            let marketing_team_id = id;
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var url = '{{ url('save_follow_up_appointment') }}';
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    follow_up_or_appointment: follow_up_or_appointment,
+                    marketing_team_id: marketing_team_id,
+                    date_time: date_time,
+                    remark: remark,
+                    appointment_person: appointment_person,
+                    appointment_location: appointment_location,
+                },
+                success: function(data) {
+                    $.toast({
+                        title: 'Success',
+                        content: 'Your processing has been completed.',
+                        type: 'info',
+                        delay: 1000,
+                        dismissible: true,
+                    });
+                    // console.log("SUCC");
+                    // alert("Success (This is testing)")
+                },
+                error: function(data) {
+                    console.log("Error");
+                }
+            });
+        });
+
+        $("#FollowUp").click(function() {
+            $("#AppointmentPerson").hide();
+            $("#AppointmentLocation").hide();
+        });
+
+        $("#Appointment").click(function() {
+            $("#AppointmentPerson").show();
+            $("#AppointmentLocation").show();
+        });
+
+        $("#AppointmentPerson").hide();
+        $("#AppointmentLocation").hide();
     </script>
 @endsection

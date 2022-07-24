@@ -91,14 +91,25 @@ class MarketingTeamController extends Controller
                 }
             })
 
-            ->editColumn('phone', function ($each) {
-                $id = $each->id;
-                $phone =  $each->phone;
-                return view("marketing.marketing_team.load.phone", compact("phone", "id"));
+            ->addColumn('phone', function ($each) {
+                $id =  $each->id;
+                $html = '';
+                $html .= '
+                    <button type="button" class="btn btn-primary btn-xs" id="showPhoneModel" data-id="' . $id . '">
+                        <i class="fa fa-phone"></i>
+                        Call
+                    </button>
+                ';
+
+                $html .= '
+                    <button type="button" class="btn btn-primary btn-xs" data-id="' . $id . '">
+                        Call History
+                    </button>
+                ';
+                return $html;
             })
 
             ->addColumn('photo_status', function ($each) {
-
                 $photo_status = ($each->photo_status == 'no') ? ('No') : ('Yes');
                 $bg_status = ($each->photo_status == 'no') ? ('bg-danger') : ('bg-success');
 
@@ -406,5 +417,23 @@ class MarketingTeamController extends Controller
     {
         $marketing_edit = MarketingTeam::findOrFail($id);
         return Excel::download(new MarketingTeamDetailsExport($marketing_edit), 'property_details_' . date("Y-m-d H:i:s") . '.xlsx');
+    }
+
+
+    public function get_phone_number($id)
+    {
+        $marketing = MarketingTeam::findOrFail($id);
+
+        $propertyPhoneNumber = explode(',', $marketing->phone);
+        $propertyPhoneNumberTotal = count($propertyPhoneNumber);
+
+        $html = '';
+        for ($i = 0; $i < $propertyPhoneNumberTotal; $i++) {
+            $ph = $propertyPhoneNumber[$i];
+            $html .= '<a href="tel:' . $ph . '">' . $ph . '</a>';
+            $html .= "<br>";
+        }
+
+        return response()->json(['html' => $html]);
     }
 }
