@@ -231,7 +231,7 @@
                                                 <input type="text" data-colum="18" placeholder="Search">
                                             </th>
                                             <th>
-                                                <input type="text" data-colum="19" placeholder="Search">
+                                                <input type="text" data-colum="19" placeholder="Search" hidden>
                                             </th>
                                             <th>
                                                 <input type="text" data-colum="20" placeholder="Search" hidden>
@@ -328,7 +328,7 @@
                 }
             },
 
-            lengthMenu: [100, 250, 350, 450, 550, 650, 750, 850, 950, 1100, 1200, 1300],
+            lengthMenu: [70, 100, 250, 350, 450, 550, 650, 750, 850, 950, 1100, 1200, 1300],
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -492,15 +492,7 @@
                     appointment_location: appointment_location,
                 },
                 success: function(data) {
-                    $.toast({
-                        title: 'Success',
-                        content: 'Your processing has been completed.',
-                        type: 'info',
-                        delay: 1000,
-                        dismissible: true,
-                    });
-                    // console.log("SUCC");
-                    // alert("Success (This is testing)")
+                    toastr.success("Your processing has been completed.");
                 },
                 error: function(data) {
                     console.log("Error");

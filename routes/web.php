@@ -77,11 +77,10 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('follow_up', 'Marketing\FollowUpController');
-    Route::get('follow_up_now/{id}', [
-        'as' => 'follow_up_now',
-        'uses' => 'Marketing\FollowUpController@follow_up_now'
+    Route::get('follow_up_ajax', [
+        'as' => 'follow_up_ajax',
+        'uses' => 'Marketing\FollowUpController@follow_up_ajax'
     ]);
-
     Route::post('save_follow_up_appointment', [
         'as' => 'save_follow_up_appointment',
         'uses' => 'Marketing\FollowUpController@save_follow_up_appointment'

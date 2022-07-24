@@ -83,7 +83,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-<script src="{{ asset('install/toasts/js/toast.js') }}"></script>
+
+{{-- toastr --}}
+<script src="{{ asset('global/vendor/toastr/toastr.minfd53.js?v4.0.1') }}"></script>
+<script src="{{ asset('global/js/Plugin/toastr.minfd53.js?v4.0.1') }}"></script>
 
 
 @yield('script')

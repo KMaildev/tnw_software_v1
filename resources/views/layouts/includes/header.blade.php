@@ -58,8 +58,10 @@
 
     <link rel="stylesheet" href="{{ asset('global/vendor/bootstrap-select/bootstrap-select.minfd53.css?v4.0.1') }}">
 
-    <link rel="stylesheet" href="{{ asset('install/toasts/css/toast.css') }}">
-    
+    {{-- toastr --}}
+    <link rel="stylesheet" href="{{ asset('global/vendor/toastr/toastr.minfd53.css?v4.0.1') }}">
+    <link rel="stylesheet" href="{{ asset('assets/examples/css/advanced/toastr.minfd53.css?v4.0.1') }}">
+
 
     {{-- Datatable --}}
     <link rel="stylesheet"

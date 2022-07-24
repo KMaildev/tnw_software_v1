@@ -27,7 +27,7 @@
 
                     <li class="dropdown site-menu-item has-sub">
                         <a href="{{ route('follow_up.index') }}">
-                            Follow Up Report
+                            Follow Up 
                             <span class="badge badge_noti_count">
                                 {{ $follow_up_total ?? 0 }}
                             </span>

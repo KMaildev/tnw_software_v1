@@ -1,154 +1,386 @@
 @extends('layouts.menu.marketing')
 @section('content')
-    <div class="page page-user">
-        <div class="page-content">
-            <!-- Panel -->
-            <div class="panel">
-                <div class="panel-body">
-                    <form class="page-search-form" role="search">
-                        <div class="input-search input-search-dark">
-                            <i class="input-search-icon wb-search" aria-hidden="true"></i>
-                            <input type="text" class="form-control" id="inputSearch" name="search"
-                                placeholder="Search Users">
-                            <button type="button" class="input-search-close icon wb-close" aria-label="Close"></button>
-                        </div>
-                    </form>
+    <div class="page">
+        <div class="page-header">
+            <h1 class="page-title">Follow Up</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('marketing_dahsboard.index') }}">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Follow Up</li>
+            </ol>
+        </div>
 
-                    <div class="nav-tabs-horizontal nav-tabs-animate" data-plugin="tabs">
-                        <ul class="nav nav-tabs nav-tabs-line" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <a class="active nav-link" data-toggle="tab" href="#today_follow_up"
-                                    aria-controls="today_follow_up" role="tab">
-                                    Today Follow Up
-                                </a>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" data-toggle="tab" href="#all_contacts" aria-controls="all_contacts"
-                                    role="tab">
-                                    All Follow Up
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane animation-fade active" id="today_follow_up" role="tabpanel">
-                                <ul class="list-group">
-                                    @foreach ($today_followup_lists as $today_followup_list)
-                                        <li class="list-group-item">
-                                            <div class="media">
-                                                <div class="media-body align-self-center">
-                                                    <h4 class="mt-0 mb-5">
-                                                        {{ $today_followup_list->marketing_teams_table->name ?? '' }}
-                                                    </h4>
-                                                    <div style="background-color: #f1f4f5; margin: 10px; padding: 10px;">
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color wb-map" aria-hidden="true"></i>
-                                                            No
-                                                            ({{ $today_followup_list->marketing_teams_table->no ?? '' }})
-                                                            ,
-                                                            {{ $today_followup_list->marketing_teams_table->ward_no ?? '' }}
-                                                            Ward No,
-                                                            {{ $today_followup_list->marketing_teams_table->road ?? '' }}
-                                                            Road
-                                                        </p>
+        <div class="page-content container-fluid">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12">
+                    <div class="panel">
+                        <div class="row">
+                            <div class="panel-body table-responsive text-nowrap" style="overflow-x:auto;">
+                                <table class="table dataTable" id="datatable">
+                                    <thead class="tbbg">
+                                        <tr>
+                                            <th rowspan="2" style="width: 1%; color: white;">
+                                                #
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-home" aria-hidden="true"></i>
-                                                            Wide:
-                                                            {{ $today_followup_list->marketing_teams_table->wide ?? '' }}
-                                                        </p>
+                                            <th colspan="7" style="width: 2%; text-align: center; color: white;">
+                                                Property Information
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-user" aria-hidden="true"></i>
-                                                            Type:
-                                                            {{ $today_followup_list->marketing_teams_table->type ?? '' }}
-                                                        </p>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Call User <br>
+                                                (ဖုန်းခေါ်ဆိုသူ)
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-usd" aria-hidden="true"></i>
-                                                            Price:
-                                                            {{ $today_followup_list->marketing_teams_table->price ?? '' }}
-                                                        </p>
-                                                    </div>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Call Date <br> (ခေါ်ဆိုသည့်ရက်)
+                                            </th>
 
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Next Time <br> (နောက်တစ်ကြိမ် ခေါ်ရမည့်ရက်)
+                                            </th>
 
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Remark
+                                            </th>
 
-                                                    <div style="background-color: #f1f4f5; margin: 10px; padding: 10px;">
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Phone
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-user" aria-hidden="true"></i>
-                                                            O/A:
-                                                            {{ $today_followup_list->marketing_teams_table->owner_or_agent_type ?? '' }}
-                                                        </p>
+                                            <th rowspan="2" style="width: 10%; text-align: center; color: white;">
+                                                Action
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Code
+                                            </th>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Type
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-phone" aria-hidden="true"></i>
-                                                            Phone:
-                                                            {{ $today_followup_list->marketing_teams_table->phone_no ?? '' }}
-                                                        </p>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                No/အိမ်အမှတ်
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-envelope"
-                                                                aria-hidden="true"></i>
-                                                            Email:
-                                                            {{ $today_followup_list->marketing_teams_table->email ?? '' }}
-                                                        </p>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Road/လမ်း
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-calendar"
-                                                                aria-hidden="true"></i>
-                                                            Date Time:
-                                                            {{ $today_followup_list->date_time ?? '' }}
-                                                        </p>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Ward/ရပ်ကွက်
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-pen" aria-hidden="true"></i>
-                                                            Follow Up Type:
-                                                            {{ $today_followup_list->follow_up_type ?? '' }}
-                                                        </p>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Tsp/မြို့နယ်
+                                            </th>
 
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-clipboard"
-                                                                aria-hidden="true"></i>
-                                                            Remark:
-                                                            {{ $today_followup_list->follow_up_remark ?? '' }}
-                                                        </p>
-
-                                                        <p style="color: black;">
-                                                            <i class="icon icon-color fa fa-clipboard"
-                                                                aria-hidden="true"></i>
-                                                            Additional Note:
-                                                            {{ $today_followup_list->additional_note ?? '' }}
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <div class="pl-0 pl-sm-50 mt-50 mt-sm-0 align-self-center">
-                                                    @if ($today_followup_list->follow_up_status == 'finished')
-                                                        <span style="color: green">
-                                                            Finished at - {{ $today_followup_list->updated_at }}
-                                                        </span>
-                                                        <br>
-                                                        <span style="color: green">
-                                                            By
-                                                            {{ strtoupper($today_followup_list->follow_up_user->name ?? '') }}
-                                                        </span>
-                                                    @endif
-                                                    <hr>
-                                                    <a href="{{ route('follow_up_now', $today_followup_list->id) }}"
-                                                        class="btn btn-outline btn-success btn-sm">
-                                                        Follow
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                            <th
+                                                style="color: white; background-color: #3f51b5; text-align: center; widht: 10%">
+                                                Property Type
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>
+                                                <input type="text" data-colum="0" placeholder="Search" hidden>
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="1" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="2" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="3" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="4" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="5" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="6" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="7" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="8" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="9" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="10" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="11" placeholder="Search"
+                                                    style="width: 100%;">
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="12" hidden>
+                                            </th>
+                                            <th>
+                                                <input type="text" data-colum="13" hidden>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- End Panel -->
         </div>
     </div>
+
+    <!-- PhoneModelShow -->
+    <div class="modal fade" id="PhoneModelShow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #AF742E;">
+                    <h5 class="modal-title" id="exampleModalLabel" style="color: white">
+                        Call Now
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <div id="showPhoneNumbers"></div>
+                    <hr>
+                    <form class="save_follow_up_or_appointment" action="#" method="POST" id="create-form">
+                        @csrf
+                        <div class="form-group">
+                            <div class="radio-custom radio-default radio-inline">
+                                <input type="radio" id="FollowUp" name="follow_up_or_appointment" checked
+                                    value="follow_up" />
+                                <label for="FollowUp">
+                                    Follow Up
+                                </label>
+                            </div>
+                            <div class="radio-custom radio-default radio-inline">
+                                <input type="radio" id="Appointment" name="follow_up_or_appointment"
+                                    value="appointment" />
+                                <label for="Appointment">
+                                    Appointment
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <input id="datetimepicker4" type="text" class="form-control" name="date_time"
+                                    autocomplete="off" placeholder="Date" />
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" name="remark" autocomplete="off"
+                                    placeholder="Remark" />
+                            </div>
+
+                            <div class="form-group col-md-6" id="AppointmentPerson">
+                                <input type="text" class="form-control" name="appointment_person" autocomplete="off"
+                                    placeholder="Appointment Person" />
+                            </div>
+                            <div class="form-group col-md-6" id="AppointmentLocation">
+                                <input type="text" class="form-control" name="appointment_location"
+                                    autocomplete="off" placeholder="Appointment Location" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script>
+        var table = $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ordering: false,
+            ajax: {
+                url: "{{ route('follow_up_ajax') }}",
+                data: function(d) {
+                    d.from = $('#start').val();
+                    d.to = $('#to').val();
+                }
+            },
+            lengthMenu: [70, 100, 250, 350, 450, 550, 650, 750, 850, 950, 1100, 1200, 1300],
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex'
+                },
+                {
+                    data: 'code',
+                    name: 'code'
+                },
+                {
+                    data: 'offer_status',
+                    data: 'offer_status'
+                },
+                {
+                    data: 'house_no',
+                    data: 'house_no'
+                },
+                {
+                    data: 'road',
+                    data: 'road'
+                },
+                {
+                    data: 'ward',
+                    data: 'ward'
+                },
+                {
+                    data: 'township_name',
+                    data: 'township_name'
+                },
+                {
+                    data: 'property_type',
+                    data: 'property_type'
+                },
+                {
+                    data: 'follow_up_user',
+                    name: 'follow_up_user'
+                },
+                {
+                    data: 'date_time',
+                    name: 'date_time'
+                },
+                {
+                    data: 'follow_up_date',
+                    name: 'follow_up_date'
+                },
+                {
+                    data: 'follow_up_remark',
+                    name: 'follow_up_remark'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+            ],
+        });
+
+
+        $('#dateSearch').on('click', function() {
+            table.draw();
+        });
+
+
+        $(document).ready(function() {
+            $('#datatable tfoot th').each(function() {
+                var title = $('#datatable thead th').eq($(this).index()).text();
+            });
+            var table = $('#datatable').DataTable();
+
+            table.columns().eq(0).each(function(colIdx) {
+                $('input', table.column(colIdx).footer()).on('keyup change', function() {
+                    table
+                        .column(colIdx)
+                        .search(this.value)
+                        .draw();
+                });
+            });
+        });
+
+        var id;
+        $('body').on('click', '#showPhoneModel', function(e) {
+            e.preventDefault();
+            id = $(this).data('id');
+            $('#PhoneModelShow').modal('show');
+            $.ajax({
+                url: "get_phone_number/" + id,
+                method: 'GET',
+                success: function(result) {
+                    $('#showPhoneNumbers').html(result.html);
+                }
+            });
+        });
+
+
+        $('.save_follow_up_or_appointment').submit(function(e) {
+            e.preventDefault();
+            let form = $(this);
+            let data = form.serializeArray();
+
+            let follow_up_or_appointment = document.querySelector('input[name="follow_up_or_appointment"]:checked')
+                .value;
+            let date_time = form.find("input[name=date_time]").val();
+            let remark = form.find("input[name=remark]").val();
+            let appointment_person = form.find("input[name=appointment_person]").val();
+            let appointment_location = form.find("input[name=appointment_location]").val();
+            let marketing_team_id = id;
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var url = '{{ url('save_follow_up_appointment') }}';
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {
+                    follow_up_or_appointment: follow_up_or_appointment,
+                    marketing_team_id: marketing_team_id,
+                    date_time: date_time,
+                    remark: remark,
+                    appointment_person: appointment_person,
+                    appointment_location: appointment_location,
+                },
+                success: function(data) {
+                    toastr.success("Your processing has been completed.");
+                    table.ajax.reload();
+                },
+                error: function(data) {
+                    console.log("Error");
+                }
+            });
+        });
+
+        $("#FollowUp").click(function() {
+            $("#AppointmentPerson").hide();
+            $("#AppointmentLocation").hide();
+        });
+
+        $("#Appointment").click(function() {
+            $("#AppointmentPerson").show();
+            $("#AppointmentLocation").show();
+        });
+
+        $("#AppointmentPerson").hide();
+        $("#AppointmentLocation").hide();
+    </script>
 @endsection

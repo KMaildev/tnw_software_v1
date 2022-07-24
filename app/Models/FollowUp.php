@@ -19,6 +19,6 @@ class FollowUp extends Model
 
     public function follow_up_user()
     {
-        return $this->belongsTo(User::class, 'follow_up_user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

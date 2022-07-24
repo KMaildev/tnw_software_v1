@@ -50,10 +50,22 @@
                                         Marketing
                                     </a>
 
+                                    <a class="list-group-item" data-toggle="tab" href="#CallHistory"
+                                        aria-controls="CallHistory" role="tab">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        Follow Up(Call History)
+                                    </a>
+
+                                    <a class="list-group-item" data-toggle="tab" href="#Appointments"
+                                        aria-controls="Appointments" role="tab">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        Appointments
+                                    </a>
+
 
                                     @if ($marketing_edit->reject_status == 'reject')
-                                        <a class="list-group-item" data-toggle="tab" href="#Reject"
-                                            aria-controls="Reject" role="tab">
+                                        <a class="list-group-item" data-toggle="tab" href="#Reject" aria-controls="Reject"
+                                            role="tab">
                                             <i class="icon md-view-dashboard" aria-hidden="true"></i>
                                             Reject Status
                                         </a>
@@ -374,6 +386,37 @@
                                     </div>
                                     <hr>
                                     @include('components.reject_information')
+                                </div>
+
+
+                                {{-- Follow Up(Call History) --}}
+                                <div class="tab-pane" id="CallHistory" role="tabpanel">
+                                    <div class="col-md-12 col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4 class="card-title">
+                                                    Follow Up(Call History)
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @include('components.call_history')
+                                </div>
+
+                                {{-- appointments --}}
+                                <div class="tab-pane" id="Appointments" role="tabpanel">
+                                    <div class="col-md-12 col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4 class="card-title">
+                                                    Appointments
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    @include('components.appointment_lists')
                                 </div>
 
                             </div>

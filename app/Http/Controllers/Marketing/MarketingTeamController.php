@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarketingTeam;
 use App\Http\Requests\UpdateMarketingTeam;
 use App\Imports\MarketingTeamImport;
+use App\Models\Appointment;
+use App\Models\FollowUp;
 use App\Models\MarketingTeam;
 use App\Models\Models\MarketingFile;
 use App\Models\Models\MarketingTeamCount;
@@ -97,13 +99,7 @@ class MarketingTeamController extends Controller
                 $html .= '
                     <button type="button" class="btn btn-primary btn-xs" id="showPhoneModel" data-id="' . $id . '">
                         <i class="fa fa-phone"></i>
-                        Call
-                    </button>
-                ';
-
-                $html .= '
-                    <button type="button" class="btn btn-primary btn-xs" data-id="' . $id . '">
-                        Call History
+                        Call Now
                     </button>
                 ';
                 return $html;
@@ -167,14 +163,6 @@ class MarketingTeamController extends Controller
                             role="menuitem">
                             <i class="icon md-edit" aria-hidden="true"></i>
                             Edit
-                        </a>
-
-                        <a class="dropdown-item del_confirm"
-                            href="#"
-                            role="menuitem" 
-                            data-id="' . $each->id . '">
-                            <i class="icon md-delete" aria-hidden="true"></i>
-                            Delete
                         </a>
                     </div>
                 </div>';
@@ -275,7 +263,9 @@ class MarketingTeamController extends Controller
         $marketing_edit = MarketingTeam::findOrFail($id);
         $marketing_files = MarketingFile::where(['marketing_team_id' => $id])->get();
         $visitors = Visitor::where(['marketing_team_id' => $id])->get();
-        return view('marketing.marketing_team.show', compact('marketing_edit', 'marketing_files', 'visitors'));
+        $follow_ups = FollowUp::where(['marketing_team_id' => $id])->get();
+        $appointments = Appointment::where(['marketing_team_id' => $id])->get();
+        return view('marketing.marketing_team.show', compact('marketing_edit', 'marketing_files', 'visitors', 'follow_ups', 'appointments'));
     }
 
     /**
